@@ -1,0 +1,5 @@
+dist/
+infra/.terraform/
+infra/*.tfstate
+infra/*.tfstate.*
+infra/routes.auto.tfvars.json
