@@ -29,14 +29,6 @@ jobs:
         with:
           path: cloud-native/lexi-users-srl
 
-      # go.mod's `replace` directive expects this at ../../microservicios/lexi-users-ms
-      # relative to cloud-native/lexi-users-srl — same layout as the local workspace.
-      - name: Checkout lexi-users-ms
-        uses: actions/checkout@v4
-        with:
-          repository: lucaslarroque95/lexi-users-ms
-          path: microservicios/lexi-users-ms
-
       - uses: actions/setup-go@v5
         with:
           go-version: "1.26"

@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	"lexi/users/schemas"
+	"lexi-users-srl/internal/lib/schemas"
 
 	"lexi-users-srl/internal/bootstrap"
 	"lexi-users-srl/internal/httpx"

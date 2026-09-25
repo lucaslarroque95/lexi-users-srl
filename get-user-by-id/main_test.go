@@ -3,9 +3,9 @@ package main
 import (
 	"testing"
 
-	"lexi/users/models"
-	"lexi/users/service"
-	"lexi/users/test/testutil"
+	"lexi-users-srl/internal/lib/models"
+	"lexi-users-srl/internal/lib/service"
+	"lexi-users-srl/internal/lib/test/testutil"
 
 	"lexi-users-srl/internal/bootstrap"
 

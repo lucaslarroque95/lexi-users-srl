@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"lexi/users/models"
-	"lexi/users/service"
-	"lexi/users/test/testutil"
-	"lexi/users/utils"
+	"lexi-users-srl/internal/lib/models"
+	"lexi-users-srl/internal/lib/service"
+	"lexi-users-srl/internal/lib/test/testutil"
+	"lexi-users-srl/internal/lib/utils"
 
 	"lexi-users-srl/internal/bootstrap"
 

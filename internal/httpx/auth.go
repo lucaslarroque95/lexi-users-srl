@@ -4,7 +4,7 @@ import (
 	"errors"
 	"slices"
 
-	"lexi/users/utils"
+	"lexi-users-srl/internal/lib/utils"
 
 	"github.com/aws/aws-lambda-go/events"
 )
