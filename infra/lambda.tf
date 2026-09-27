@@ -7,6 +7,7 @@ locals {
     POSTGRES_USER     = local.foundation.db_master_username
     POSTGRES_PASSWORD = local.foundation.rds_master_password
     POSTGRES_DB       = local.foundation.db_name
+    POSTGRES_SSLMODE  = "require" # RDS (Postgres 15+) sets rds.force_ssl=1; db.go defaults to disable for local dev
   }
 }
 
