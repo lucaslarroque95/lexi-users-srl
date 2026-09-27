@@ -31,8 +31,9 @@ resource "aws_lambda_function" "users" {
 
   environment {
     variables = merge(local.postgres_env, {
-      KEYS_DIR    = "/var/task"
-      ADMIN_EMAIL = local.foundation.admin_email
+      ADMIN_EMAIL                = local.foundation.admin_email
+      JWT_PRIVATE_KEY_SECRET_ARN = local.foundation.jwt_private_key_secret_arn
+      JWT_PUBLIC_KEY_SECRET_ARN  = local.foundation.jwt_public_key_secret_arn
     })
   }
 }

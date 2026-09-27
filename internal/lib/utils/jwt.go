@@ -15,12 +15,30 @@ type Keys struct {
 	publicKey  *rsa.PublicKey
 }
 
+// LoadPrivateKey reads the PEM-encoded RSA private key from path (local
+// dev/testing use) and parses it via LoadPrivateKeyFromPEM.
 func (k *Keys) LoadPrivateKey(path string) error {
 	keyBytes, err := os.ReadFile(path)
 	if err != nil {
 		return err
 	}
-	key, err := jwt.ParseRSAPrivateKeyFromPEM(keyBytes)
+	return k.LoadPrivateKeyFromPEM(keyBytes)
+}
+
+// LoadPublicKey reads the PEM-encoded RSA public key from path (local
+// dev/testing use) and parses it via LoadPublicKeyFromPEM.
+func (k *Keys) LoadPublicKey(path string) error {
+	keyBytes, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	return k.LoadPublicKeyFromPEM(keyBytes)
+}
+
+// LoadPrivateKeyFromPEM parses raw PEM-encoded RSA private key bytes,
+// wherever they came from (a file, an AWS Secrets Manager secret, etc.).
+func (k *Keys) LoadPrivateKeyFromPEM(pemBytes []byte) error {
+	key, err := jwt.ParseRSAPrivateKeyFromPEM(pemBytes)
 	if err != nil {
 		return err
 	}
@@ -29,14 +47,12 @@ func (k *Keys) LoadPrivateKey(path string) error {
 	return nil
 }
 
-func (k *Keys) LoadPublicKey(path string) error {
-	keyBytes, err := os.ReadFile(path)
+// LoadPublicKeyFromPEM parses raw PEM-encoded RSA public key bytes,
+// wherever they came from (a file, an AWS Secrets Manager secret, etc.).
+func (k *Keys) LoadPublicKeyFromPEM(pemBytes []byte) error {
+	key, err := jwt.ParseRSAPublicKeyFromPEM(pemBytes)
 	if err != nil {
-		return (err)
-	}
-	key, err := jwt.ParseRSAPublicKeyFromPEM(keyBytes)
-	if err != nil {
-		return (err)
+		return err
 	}
 
 	k.publicKey = key

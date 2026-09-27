@@ -1,4 +1,5 @@
 dist/
+keys/
 infra/.terraform/
 infra/*.tfstate
 infra/*.tfstate.*
