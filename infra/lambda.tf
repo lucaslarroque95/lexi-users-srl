@@ -2,12 +2,12 @@ locals {
   foundation = data.terraform_remote_state.foundation.outputs
 
   postgres_env = {
-    POSTGRES_SERVER   = local.foundation.rds_address
-    POSTGRES_PORT     = tostring(local.foundation.rds_port)
-    POSTGRES_USER     = local.foundation.db_master_username
-    POSTGRES_PASSWORD = local.foundation.rds_master_password
+    POSTGRES_SERVER   = local.foundation.db_host
+    POSTGRES_PORT     = tostring(local.foundation.db_port)
+    POSTGRES_USER     = local.foundation.db_username
+    POSTGRES_PASSWORD = local.foundation.db_password
     POSTGRES_DB       = local.foundation.db_name
-    POSTGRES_SSLMODE  = "require" # RDS (Postgres 15+) sets rds.force_ssl=1; db.go defaults to disable for local dev
+    POSTGRES_SSLMODE  = "require" # Neon only accepts TLS; db.go defaults to disable for local dev
   }
 }
 
@@ -25,10 +25,6 @@ resource "aws_lambda_function" "users" {
   filename         = "${path.module}/../dist/${each.key}.zip"
   source_code_hash = filebase64sha256("${path.module}/../dist/${each.key}.zip")
 
-  vpc_config {
-    subnet_ids         = local.foundation.private_subnet_ids
-    security_group_ids = [local.foundation.lambda_security_group_id]
-  }
 
   environment {
     variables = merge(local.postgres_env, {
